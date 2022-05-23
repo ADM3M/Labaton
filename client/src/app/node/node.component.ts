@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { INode } from 'src/Models/INode';
 
 @Component({
@@ -10,11 +10,12 @@ export class NodeComponent implements OnInit {
 
   @Input() data: INode;
   @Input() nesting: number;
-  @ViewChild('arrow', {read: ElementRef}) arrow: ElementRef;
-  
+  @Output() Current = new EventEmitter<INode>();
+  @ViewChild('arrow', { read: ElementRef }) arrow: ElementRef;
+
   public isExpanded: boolean;
   public isChildrenCollapsed = true;
-  
+
   constructor() { }
 
   collapsed(): void {
@@ -33,7 +34,11 @@ export class NodeComponent implements OnInit {
 
   clickHandler() {
     this.isChildrenCollapsed = !this.isChildrenCollapsed;
+    this.EmitData(this.data);
+  }
 
+  EmitData(data: INode) {
+    this.Current.emit(data);
   }
 
   ngOnInit(): void {

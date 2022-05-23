@@ -1,6 +1,5 @@
-<a href="#" class="list-group-item list-group-item-action py-3 lh-tight mb-2 float-end" aria-current="true"
-    [ngStyle]="{'width.%' : nesting}" (click)="isChildrenCollapsed = !isChildrenCollapsed"
-    (expanded)="expanded()">
+<a href="#" class="list-group-item list-group-item-action py-2 lh-tight mb-2 float-end" aria-current="true"
+    [ngStyle]="{'width.%' : nesting}" (click)="clickHandler()" (expanded)="expanded()" [class.active]="data.isActive">
 
     <div class="d-flex w-100 align-items-center justify-content-between">
         <strong class="mb-1">{{data?.name}}</strong>
@@ -8,5 +7,6 @@
     </div>
 </a>
 <div id="collapsed" [collapse]="isChildrenCollapsed">
-    <app-node *ngFor="let node of data.children" [data]="node" [nesting]="nesting - 4"></app-node>
+    <app-node *ngFor="let node of data.children" [data]="node" [nesting]="nesting - 4" (Current)="EmitData($event)">
+    </app-node>
 </div>
