@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { INode } from 'src/Models/INode';
 
 @Component({
@@ -13,18 +14,21 @@ export class AppComponent implements OnInit {
   data: INode;
   current: INode;
   private fileData: File;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<INode>('../assets/a.txt').subscribe(data => {
-      this.data = data;
-      console.log(data);
-    })
+    // this.http.get<INode>('../assets/a.txt').subscribe(data => {
+    //   this.data = data;
+    // });
+    this.loadFolders();
   }
 
   loadFolders() {
-
+    this.http.get<INode>(this.baseUrl + "folders").subscribe(data => {
+      this.data = data;
+    })
   }
 
   OnElementClick(data: INode) {
@@ -47,13 +51,13 @@ export class AppComponent implements OnInit {
   }
 
   onUpload() {
-    let data: string;
+    if (this.fileData) {
+      let data: string;
 
-    this.fileData.text().then(d => {
-      data = d;
-    })
-
-    
+      this.fileData.text().then(d => {
+        data = d;
+      })
+    }
   }
 
 

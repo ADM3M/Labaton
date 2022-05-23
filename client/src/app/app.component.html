@@ -9,16 +9,18 @@
         <h3 class="fs-5 fw-semibold">Labaton</h3>
       </a>
       <div class="list-group list-group-flush border-bottom scrollarea">
-        <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100" (Current)="OnElementClick($event)" ></app-node>
+        <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100" (Current)="OnElementClick($event)">
+        </app-node>
       </div>
     </div>
 
     <div id="divider" class="col"></div>
     <div id="container" class="col">
       <p>Selected directory: <span style="color: rgb(37, 92, 211);">{{current ? current?.path : "none"}}</span></p>
-      
+
       <div class="mb-3">
-        <input class="form-control " type="file" style="width: 80%;" accept=".txt,.json" (change)="onFileSelect($event)">
+        <input class="form-control " type="file" style="width: 80%;" accept=".txt,.json"
+          (change)="onFileSelect($event)">
       </div>
       <div style="width: 80%;">
         <div class="btn btn-secondary float-end" (click)="onUpload()">Upload</div>
