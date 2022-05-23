@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
     this.http.get<INode>('../assets/a.txt').subscribe(data => {
       this.data = data;
       console.log(data);
-  
     })
   }
 

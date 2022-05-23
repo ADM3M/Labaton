@@ -1,17 +1,21 @@
-<div class="col d-flex flex-column align-items-stretch flex-shrink-0 bg-white"
-  style="width: 380px; overflow-y: scroll; max-height: 100%;">
-  <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-    <svg class="bi me-2" width="30" height="24">
-      <use xlink:href="#bootstrap"></use>
-    </svg>
-    <span class="fs-5 fw-semibold">List group</span>
-  </a>
-  <div class="list-group list-group-flush border-bottom scrollarea">
-    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
-      <div class="d-flex w-100 align-items-center justify-content-between">
-        <strong class="mb-1">A</strong>
-        <i class="fa fa-angle-down"></i>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col d-flex flex-column align-items-stretch flex-shrink-0 bg-white"
+      style="width: 380px; overflow-y: auto; max-height: 100%;">
+      <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+        <svg class="bi me-2" width="30" height="24">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-5 fw-semibold">List group</span>
+      </a>
+      <div class="list-group list-group-flush border-bottom scrollarea">
+        <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100"></app-node>
       </div>
-    </a>
+    </div>
+
+    <div id="divider" class="col"></div>
+    <div class="col container-fluid">
+      <h2 class="display-2">Some data</h2>
+    </div>
   </div>
 </div>
