@@ -1,0 +1,33 @@
+{
+  "name": "test",
+  "path": "d:\\test",
+  "children": [
+    {
+      "name": "A",
+      "path": "d:\\test\\A",
+      "children": [
+        {
+          "name": "A1",
+          "path": "d:\\test\\A\\A1",
+          "children": []
+        },
+        {
+          "name": "A2",
+          "path": "d:\\test\\A\\A2",
+          "children": [
+            {
+              "name": "A2-1",
+              "path": "d:\\test\\A\\A2\\A2-1",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "B",
+      "path": "d:\\test\\B",
+      "children": []
+    }
+  ]
+}
