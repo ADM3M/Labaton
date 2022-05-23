@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'client';
   data: INode;
   current: INode;
-  private fileData: FormData;
+  private fileData: File;
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
       this.data = data;
       console.log(data);
     })
+  }
+
+  loadFolders() {
+
   }
 
   OnElementClick(data: INode) {
@@ -38,18 +42,18 @@ export class AppComponent implements OnInit {
     const file: File = event.target.files[0];
 
     if (file) {
-
-      const formData = new FormData();
-
-      formData.append("thumbnail", file);
-
-      this.fileData = formData;
-      console.log(formData);
+      this.fileData = file;
     }
   }
 
-  uploadJson() {
+  onUpload() {
+    let data: string;
 
+    this.fileData.text().then(d => {
+      data = d;
+    })
+
+    
   }
 
 
