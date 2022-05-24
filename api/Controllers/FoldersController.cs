@@ -1,4 +1,5 @@
-﻿using api.Interfaces;
+﻿using api.DTO;
+using api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -22,5 +23,14 @@ namespace api.Controllers
 
             return Ok(json);
         }
+
+        [HttpPost("Create")]
+        public ActionResult CreateFolders([FromBody] CreateFolderDTO folderDTO)
+        {
+            var createdFolder = _folderRepository.CreateFolder(folderDTO);
+
+            return Ok(createdFolder);
+        }
+
     }
 }

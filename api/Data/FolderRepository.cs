@@ -1,28 +1,28 @@
-﻿using api.Interfaces;
+﻿using api.DTO;
+using api.Interfaces;
 using System.Text.Json.Nodes;
 
 namespace api.Data
 {
     public class FolderRepository : IFolderRepository
     {
-        public JsonObject CreateFolder(string jsonData, string path, bool append = true)
+        public JsonObject CreateFolder(CreateFolderDTO folderDTO)
         {
-            var jsonObj = JsonNode.Parse(jsonData)?.AsObject();
+            var jsonObj = JsonNode.Parse(folderDTO.JsonData)?.AsObject();
 
             DirectoryInfo dir = null;
 
-            if (!append)
+            if (!folderDTO.Append)
             {
-                Directory.Delete(path, recursive: true);
-                Directory.CreateDirectory(path);
+                Directory.Delete(folderDTO.Path, recursive: true);
+                Directory.CreateDirectory(folderDTO.Path);
             }
 
-            dir ??= new(path);
+            dir ??= new(folderDTO.Path);
 
             GenerateFoldersRecursive(jsonObj, dir);
 
-            return null;
-
+            return GetFolders(dir);
         }
 
         private void GenerateFoldersRecursive(JsonObject jsonObj, DirectoryInfo currentDir)

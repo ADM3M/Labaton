@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using api.DTO;
 using System.Text.Json.Nodes;
 
 namespace api.Interfaces
@@ -7,6 +7,6 @@ namespace api.Interfaces
     {
         JsonObject GetFolders(DirectoryInfo dir);
 
-        JsonObject CreateFolder(string jsonData, string path, bool append);
+        JsonObject CreateFolder(CreateFolderDTO folderDTO);
     }
 }
