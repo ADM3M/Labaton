@@ -8,7 +8,7 @@
         <h3 class="fs-5 fw-semibold">Labaton</h3>
       </a>
       <div id="list" class="list-group list-group-flush scrollarea"
-        style="position: relative; height: 88vh; overflow-y: auto;">
+        style="position: relative; height: 88vh; overflow-y: auto;" >
         <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100" (Current)="OnElementClick($event)">
         </app-node>
       </div>
@@ -23,7 +23,7 @@
           (change)="onFileSelect($event)">
       </div>
       <div style="width: 80%;">
-        <div class="btn btn-secondary float-end" (click)="onUpload()">Upload</div>
+        <button type="button" [disabled]="!current || !fileData" class="btn btn-outline-primary float-end" (click)="onUpload()">Apply scheme</button>
       </div>
     </div>
   </div>
