@@ -32,9 +32,13 @@ export class NodeComponent implements OnInit {
     this.arrow.nativeElement.classList.add('fa-angle-down')
   }
 
-  clickHandler() {
+  doubleClickHandler() {
     this.isChildrenCollapsed = !this.isChildrenCollapsed;
     this.EmitData(this.data);
+  }
+
+  clickHandler() {
+    this.EmitData(this.data)
   }
 
   EmitData(data: INode) {

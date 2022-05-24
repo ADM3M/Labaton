@@ -1,5 +1,5 @@
 <div class="list-group-item list-group-item-action py-2 lh-tight mb-2 float-end" aria-current="true"
-    [ngStyle]="{'width.%' : nesting}" (click)="clickHandler()" (expanded)="expanded()" [class.active]="data.isActive">
+    [ngStyle]="{'width.%' : nesting}"  (dblclick)="doubleClickHandler()" (click)="clickHandler()" (expanded)="expanded()" [class.active]="data?.isActive">
 
     <div class="d-flex w-100 align-items-center justify-content-between">
         <strong class="mb-1">{{data?.name}}</strong>
