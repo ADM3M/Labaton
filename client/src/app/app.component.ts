@@ -18,11 +18,10 @@ export class AppComponent implements OnInit {
   @ViewChild('fileUpload') fileInput: HTMLInputElement;
 
   data: INode;
-  current: INode;
   public fileData: File;
   modal?: BsModalRef;
 
-  constructor(private http: HttpClient, private foldersService: FoldersService, private modalService: BsModalService) { }
+  constructor(private http: HttpClient, public foldersService: FoldersService, private modalService: BsModalService) { }
 
   openModal(targetNodeName: string): Subject<string> {
     this.modal = this.modalService.show(MainModalComponent);
@@ -53,18 +52,8 @@ export class AppComponent implements OnInit {
     };
 
     this.foldersService.createFolder(folderDTO).subscribe(node => {
-      this.current.children = node.children;
+      this.foldersService.current.children = node.children;
     });
-  }
-
-  OnElementClick(data: INode) {
-
-    if (this.current) {
-      this.current.isActive = false;
-    }
-
-    this.current = data;
-    data.isActive = true;
   }
 
   onFileSelect(event) {
@@ -76,25 +65,23 @@ export class AppComponent implements OnInit {
   }
 
   onUpload() {
-    if (!this.fileData || !this.current) {
-      return;
-    }
-
     this.fileData.text().then(fileData => {
-      if (this.current.children.length > 0) {
-        this.openModal(this.current.name).subscribe(data => {
+      let current = this.foldersService.current;
+
+      if (current.children.length > 0) {
+        this.openModal(current.name).subscribe(data => {
           let cancel = data === "cancel";
-          this.createFolders(fileData, this.current.path, data === "append", cancel);
+          this.createFolders(fileData, current.path, data === "append", cancel);
         });
       }
       else {
-        this.createFolders(fileData, this.current.path, false, false);
+        this.createFolders(fileData, current.path, false, false);
       }
     });
   }
 
-  test() {
-    console.log("click");
+  resetClicks() {
+    this.foldersService.setCurrentNode(this.data);
   }
 
 

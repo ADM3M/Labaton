@@ -8,13 +8,20 @@ import { INode } from 'src/Models/INode';
   providedIn: 'root'
 })
 export class FoldersService {
-
-  public data: INode;
   public current: INode;
   
   constructor(private http:HttpClient) { }
 
   private baseUrl = environment.baseUrl;
+  
+  setCurrentNode(node: INode) {
+    if (this.current) {
+      this.current.isActive = false;
+    }
+
+    this.current = node;
+    node.isActive = true;
+  }
   
   getFolders() {
     return this.http.get<INode>(this.baseUrl + "folders");

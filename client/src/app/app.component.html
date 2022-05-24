@@ -1,14 +1,13 @@
 <div class="container-fluid" style="height: 100vh; overflow: hidden;">
   <div class="row" style="height: 100%;">
     <div class="col d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-      <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-        <svg class="bi me-2" width="30" height="24">
-          <use xlink:href="#bootstrap"></use>
+      <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+        <svg class="bi me-2" width="30" height="24"> -->
         </svg>
-        <h3 class="fs-5 fw-semibold">Labaton</h3>
-      </a>
+        <h3 class="fs-5 fw-semibold" style="cursor: default; user-select: none;">Labaton</h3>
+      </div>
       <div id="list" class="list-group list-group-flush scrollarea"
-        style="position: relative; height: 88vh; overflow-y: auto;" >
+        style="position: relative; height: 88vh; overflow-y: auto;" (click)="resetClicks()" >
         <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100" (Current)="OnElementClick($event)">
         </app-node>
       </div>
@@ -16,14 +15,14 @@
 
     <div id="divider" class="col"></div>
     <div id="container" class="col">
-      <p>Selected directory: <span style="color: rgb(37, 92, 211);">{{current ? current?.path : "none"}}</span></p>
+      <p>Selected directory: <span style="color: rgb(37, 92, 211);">{{foldersService.current?.path ?? "none"}}</span></p>
 
       <div class="mb-3">
         <input #fileUpload class="form-control " type="file" style="width: 80%;" accept=".txt,.json"
           (change)="onFileSelect($event)">
       </div>
       <div style="width: 80%;">
-        <button type="button" [disabled]="!current || !fileData" class="btn btn-outline-primary float-end" (click)="onUpload()">Apply scheme</button>
+        <button type="button" [disabled]="!foldersService.current || !fileData" class="btn btn-outline-primary float-end" (click)="onUpload()">Apply scheme</button>
       </div>
     </div>
   </div>

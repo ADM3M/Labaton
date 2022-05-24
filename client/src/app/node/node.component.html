@@ -1,5 +1,5 @@
 <div class="list-group-item list-group-item-action py-2 lh-tight mb-2 float-end" aria-current="true"
-    [ngStyle]="{'width.%' : nesting}" (dblclick)="doubleClickHandler()" (click)="clickHandler()"
+    [ngStyle]="{'width.%' : nesting}" (dblclick)="doubleClickHandler()" (click)="$event.stopPropagation()" (click)="clickHandler()"
     [class.active]="data?.isActive">
 
     <div class="d-flex w-100 align-items-center justify-content-between">
@@ -8,6 +8,6 @@
     </div>
 </div>
 <div id="collapsed" [collapse]="isChildrenCollapsed">
-    <app-node *ngFor="let node of data.children" [data]="node" [nesting]="nesting - 4" (Current)="EmitData($event)">
+    <app-node *ngFor="let node of data.children" [data]="node" [nesting]="nesting - 4" >
     </app-node>
 </div>
