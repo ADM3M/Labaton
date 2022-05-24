@@ -11,26 +11,9 @@ export class NodeComponent implements OnInit {
   @Input() data: INode;
   @Input() nesting: number;
   @Output() Current = new EventEmitter<INode>();
-  @ViewChild('arrow', { read: ElementRef }) arrow: ElementRef;
-
-  public isExpanded: boolean;
-  public isChildrenCollapsed = true;
+  @Input() isChildrenCollapsed = true;
 
   constructor() { }
-
-  collapsed(): void {
-    console.log('collapsed');
-    this.isExpanded = false;
-    this.arrow.nativeElement.classList.add('fa-angle-down')
-    this.arrow.nativeElement.classList.remove('fa-angle-left')
-  }
-
-  expanded(): void {
-    console.log('expanded');
-    this.isExpanded = true;
-    this.arrow.nativeElement.classList.remove('fa-angle-left')
-    this.arrow.nativeElement.classList.add('fa-angle-down')
-  }
 
   doubleClickHandler() {
     this.isChildrenCollapsed = !this.isChildrenCollapsed;

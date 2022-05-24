@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { IFolderCreate } from 'src/Models/IFolderCreate';
 import { INode } from 'src/Models/INode';
+import { FoldersService } from './folders.service';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +13,21 @@ import { INode } from 'src/Models/INode';
 export class AppComponent implements OnInit {
 
   title = 'client';
+  @ViewChild('fileUpload') fileInput: HTMLInputElement;
+
   data: INode;
   current: INode;
   private fileData: File;
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private foldersService: FoldersService) { }
 
   ngOnInit(): void {
-    // this.http.get<INode>('../assets/a.txt').subscribe(data => {
-    //   this.data = data;
-    // });
     this.loadFolders();
   }
 
   loadFolders() {
-    this.http.get<INode>(this.baseUrl + "folders").subscribe(data => {
+    this.foldersService.getFolders().subscribe(data => {
       this.data = data;
     })
   }
@@ -38,7 +39,6 @@ export class AppComponent implements OnInit {
     }
 
     this.current = data;
-    console.log(data);
     data.isActive = true;
   }
 
@@ -51,13 +51,27 @@ export class AppComponent implements OnInit {
   }
 
   onUpload() {
-    if (this.fileData) {
-      let data: string;
-
-      this.fileData.text().then(d => {
-        data = d;
-      })
+    if (!this.fileData) {
+      return;
     }
+
+    let fileData: string;
+
+    this.fileData.text().then(fileData => {
+      console.log(fileData);
+
+      let folderDTO: IFolderCreate = {
+        jsonData : fileData,
+        path : this.current.path,
+        append: false
+      }
+
+      this.foldersService.createFolder(folderDTO).subscribe(node => {
+          this.current.children = node.children;
+      })
+    });
+
+
   }
 
 

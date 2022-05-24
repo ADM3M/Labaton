@@ -19,7 +19,7 @@
       <p>Selected directory: <span style="color: rgb(37, 92, 211);">{{current ? current?.path : "none"}}</span></p>
 
       <div class="mb-3">
-        <input class="form-control " type="file" style="width: 80%;" accept=".txt,.json"
+        <input #fileUpload class="form-control " type="file" style="width: 80%;" accept=".txt,.json"
           (change)="onFileSelect($event)">
       </div>
       <div style="width: 80%;">
