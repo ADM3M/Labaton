@@ -1,9 +1,9 @@
 #divider {
     max-width: 1px;
     padding:0;
-    border: 1px solid black;
+    border: 1px solid #dee2e5;
     border-radius: 10px;
-    height: 90vh;
+    height: 92vh;
     margin:0px;
     margin-top: 2rem;
 }
@@ -24,4 +24,8 @@
 
 #container input#file-upload-button {
     width: 100%;
+}
+
+#list::-webkit-scrollbar {
+    display: none;
 }
