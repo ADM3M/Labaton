@@ -7,6 +7,6 @@ namespace api.Interfaces
     {
         JsonObject GetFolders(DirectoryInfo dir);
 
-        JsonObject CreateFolder(string jsonData, string path);
+        JsonObject CreateFolder(string jsonData, string path, bool append);
     }
 }
