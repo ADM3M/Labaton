@@ -5,9 +5,42 @@ namespace api.Data
 {
     public class FolderRepository : IFolderRepository
     {
-        public JsonObject CreateFolder(string jsonData, string path)
+        public JsonObject CreateFolder(string jsonData, string path, bool append = true)
         {
-            throw new NotImplementedException();
+            var jsonObj = JsonNode.Parse(jsonData)?.AsObject();
+
+            DirectoryInfo dir = null;
+
+            if (!append)
+            {
+                Directory.Delete(path, recursive: true);
+                Directory.CreateDirectory(path);
+            }
+
+            dir ??= new(path);
+
+            GenerateFoldersRecursive(jsonObj, dir);
+
+            return null;
+
+        }
+
+        private void GenerateFoldersRecursive(JsonObject jsonObj, DirectoryInfo currentDir)
+        {
+            if (!jsonObj.Any())
+            {
+                return;
+            }
+
+            foreach (var node in jsonObj)
+            {
+                string path = currentDir.FullName + "\\" + node.Key;
+
+                var newDir = !Directory.Exists(path) ? Directory.CreateDirectory(path)
+                    : Directory.CreateDirectory(path + "-1");
+
+                GenerateFoldersRecursive(node.Value.AsObject(), newDir);
+            }
         }
 
         public JsonObject GetFolders(DirectoryInfo dir)
