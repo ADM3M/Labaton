@@ -46,19 +46,17 @@ namespace api.Data
         public JsonObject GetFolders(DirectoryInfo dir)
         {
             var subfolderNames = dir.EnumerateDirectories();
+            var json = new JsonObject(new List<KeyValuePair<string, JsonNode>>
+            {
+                KeyValuePair.Create<string, JsonNode>("name", JsonValue.Create(dir.Name)),
+                KeyValuePair.Create<string, JsonNode>("path", JsonValue.Create(dir.FullName)),
+            });
 
             if (!subfolderNames.Any())
             {
-                return new JsonObject(new List<KeyValuePair<string, JsonNode>> {
-                KeyValuePair.Create<string, JsonNode>("name", JsonValue.Create(dir.Name)),
-                KeyValuePair.Create<string, JsonNode>("path", JsonValue.Create(dir.FullName)),
-                KeyValuePair.Create<string, JsonNode>("children", new JsonArray()),
-            });
+                json.Add(KeyValuePair.Create<string, JsonNode>("children", new JsonArray()));
+                return json;
             }
-
-            var json = new JsonObject();
-            json.Add("name", JsonValue.Create(dir.Name));
-            json.Add("path", JsonValue.Create(dir.FullName));
 
             json.Add("children", new JsonArray(
                 subfolderNames.Select(x =>

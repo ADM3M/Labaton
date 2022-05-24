@@ -27,6 +27,16 @@ namespace api.Controllers
         [HttpPost("Create")]
         public ActionResult CreateFolders([FromBody] CreateFolderDTO folderDTO)
         {
+            if (folderDTO is null)
+            {
+                return BadRequest("You need body for this request");
+            }
+
+            if (string.IsNullOrEmpty(folderDTO.Path) || string.IsNullOrEmpty(folderDTO.JsonData))
+            {
+                return BadRequest("path or data not specified");
+            }
+
             var createdFolder = _folderRepository.CreateFolder(folderDTO);
 
             return Ok(createdFolder);
