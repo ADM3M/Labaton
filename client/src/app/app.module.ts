@@ -8,7 +8,7 @@ import { NodeComponent } from './node/node.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { MainModalComponent } from './Modals/main-modal/main-modal.component';
+import { MainModalComponent } from './modals/main-modal/main-modal.component';
 
 @NgModule({
   declarations: [

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IFolderCreate } from 'src/Models/IFolderCreate';
-import { INode } from 'src/Models/INode';
+import { IFolderCreate } from 'src/app/models/folderCreate';
+import { INode } from 'src/app/models/node';
 
 @Injectable({
   providedIn: 'root'

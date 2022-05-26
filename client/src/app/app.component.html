@@ -1,29 +1,36 @@
-<div class="container-fluid" style="height: 100vh; overflow: hidden;">
-  <div class="row" style="height: 100%;">
-    <div class="col d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-      <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-        <svg class="bi me-2" width="30" height="24"> -->
-        </svg>
-        <h3 class="fs-5 fw-semibold" style="cursor: default; user-select: none;">Labaton</h3>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+      
+      <div class="d-flex align-items-center flex-shrink-0 p-3 border-bottom">
+        <svg class="bi me-2" width="30" height="24"></svg>
+        <h3 class="fs-5 fw-semibold">Labaton</h3>
       </div>
-      <div id="list" class="list-group list-group-flush scrollarea"
-        style="position: relative; height: 88vh; overflow-y: auto;" (click)="resetClicks()" >
-        <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100" (Current)="OnElementClick($event)">
-        </app-node>
+
+      <div class="list-group list-group-flush scrollarea" (click)="resetClicks()">
+        <app-node *ngFor="let node of data?.children" [data]="node" [nesting]="100"></app-node>
       </div>
+
     </div>
 
-    <div id="divider" class="col"></div>
-    <div id="container" class="col">
-      <p>Selected directory: <span style="color: rgb(37, 92, 211);">{{foldersService.current?.path ?? "none"}}</span></p>
+    <div class="divider col"></div>
+
+    <div class="_container col">
+
+      <p>Selected directory: <span>{{foldersService.current?.path ?? "none"}}</span></p>
 
       <div class="mb-3">
-        <input #fileUpload class="form-control " type="file" style="width: 80%;" accept=".txt,.json"
-          (change)="onFileSelect($event)">
+        <input #fileUpload class="form-control " type="file" accept=".txt,.json" (change)="onFileSelect($event)">
       </div>
-      <div style="width: 80%;">
-        <button type="button" [disabled]="!foldersService.current || !fileData" class="btn btn-outline-primary float-end" (click)="onUpload()">Apply scheme</button>
+
+      <div class="_btn">
+        <button 
+          type="button" 
+          class="btn btn-outline-primary float-end" 
+          [disabled]="!foldersService.current || !fileData"
+          (click)="onUpload()">Apply scheme</button>
+
       </div>
     </div>
-  </div>
+  </div> 
 </div>

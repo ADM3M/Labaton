@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { INode } from 'src/Models/INode';
+import { Component, Input, OnInit } from '@angular/core';
+import { INode } from 'src/app/models/node';
 import { FoldersService } from '../folders.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { FoldersService } from '../folders.service';
   templateUrl: './node.component.html',
   styleUrls: ['./node.component.css']
 })
-export class NodeComponent implements OnInit {
+export class NodeComponent {
 
   @Input() data: INode;
   @Input() nesting: number;
@@ -15,16 +15,13 @@ export class NodeComponent implements OnInit {
 
   constructor(private folderService: FoldersService) { }
 
-  doubleClickHandler() {
+  public doubleClickHandler(event: any) {
     this.isChildrenCollapsed = !this.isChildrenCollapsed;
-    this.clickHandler();
+    this.clickHandler(event);
   }
 
-  clickHandler() {
+  public clickHandler(event: any) {
+    event.stopPropagation()
     this.folderService.setCurrentNode(this.data)
   }
-
-  ngOnInit(): void {
-  }
-
 }

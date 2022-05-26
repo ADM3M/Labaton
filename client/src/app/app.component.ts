@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
-import { IFolderCreate } from 'src/Models/IFolderCreate';
-import { INode } from 'src/Models/INode';
+import { IFolderCreate } from 'src/app/models/folderCreate';
+import { INode } from 'src/app/models/node';
 import { FoldersService } from './folders.service';
-import { MainModalComponent } from './Modals/main-modal/main-modal.component';
+import { MainModalComponent } from './modals/main-modal/main-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -14,38 +13,37 @@ import { MainModalComponent } from './Modals/main-modal/main-modal.component';
 })
 export class AppComponent implements OnInit {
 
-  title = 'client';
   @ViewChild('fileUpload') fileInput: HTMLInputElement;
 
-  data: INode;
+  public data: INode;
   public fileData: File;
-  modal?: BsModalRef;
+  private modal?: BsModalRef;
 
-  constructor(private http: HttpClient, public foldersService: FoldersService, private modalService: BsModalService) { }
+  constructor(public foldersService: FoldersService, private modalService: BsModalService) { }
 
-  openModal(targetNodeName: string): Subject<string> {
+  private openModal(targetNodeName: string): Subject<string> {
     this.modal = this.modalService.show(MainModalComponent);
     this.modal.content.targetNode = targetNodeName;
     this.modal.content.title = "info";
     return this.modal.content.result;
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadFolders();
   }
 
-  loadFolders() {
+  private loadFolders() {
     this.foldersService.getFolders().subscribe(data => {
       this.data = data;
     })
   }
 
-  createFolders(data: string, path: string, append: boolean, isCanceled: boolean) {
+  private createFolders(data: string, path: string, append: boolean, isCanceled: boolean) {
     if (isCanceled) {
       return;
     }
 
-    let folderDTO: IFolderCreate = {
+    const folderDTO: IFolderCreate = {
       jsonData: data,
       path: path,
       append: append
@@ -56,7 +54,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onFileSelect(event) {
+  public onFileSelect(event) {
     const file: File = event.target.files[0];
 
     if (file) {
@@ -64,13 +62,13 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onUpload() {
+  public onUpload() {
     this.fileData.text().then(fileData => {
-      let current = this.foldersService.current;
+      const current = this.foldersService.current;
 
       if (current.children.length > 0) {
         this.openModal(current.name).subscribe(data => {
-          let cancel = data === "cancel";
+          const cancel = data === "cancel";
           this.createFolders(fileData, current.path, data === "append", cancel);
         });
       }
@@ -80,9 +78,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  resetClicks() {
+  public resetClicks() {
     this.foldersService.setCurrentNode(this.data);
   }
-
-
 }
