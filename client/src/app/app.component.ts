@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
   private loadFolders() {
     this.foldersService.getFolders().subscribe(data => {
       this.data = data;
-    })
+      this.foldersService.current = data;
+    });
   }
 
   private createFolders(data: string, path: string, append: boolean, isCanceled: boolean) {

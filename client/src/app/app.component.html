@@ -17,7 +17,7 @@
 
     <div class="_container col">
 
-      <p>Selected directory: <span>{{foldersService.current?.path ?? "none"}}</span></p>
+      <p>Selected directory: <span>{{foldersService.current?.path}}</span></p>
 
       <div class="mb-3">
         <input #fileUpload class="form-control " type="file" accept=".txt,.json" (change)="onFileSelect($event)">
